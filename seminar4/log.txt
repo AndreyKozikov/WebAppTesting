@@ -1,0 +1,6 @@
+2024-12-13 13:58:15 INFO ====== WebDriver manager ======
+2024-12-13 13:58:17 INFO Get LATEST chromedriver version for google-chrome
+2024-12-13 13:58:17 INFO Get LATEST chromedriver version for google-chrome
+2024-12-13 13:58:17 INFO Driver [C:\Users\nwisd\.wdm\drivers\chromedriver\win64\131.0.6778.108\chromedriver-win32/chromedriver.exe] found in cache
+2024-12-13 13:58:20 INFO Send '4' to element ('xpath', '//*[@id="login"]/div[1]/label/input')
+2024-12-13 13:58:25 INFO Send 'gblogin' to element ('xpath', '//*[@id="login"]/div[1]/label/input')
