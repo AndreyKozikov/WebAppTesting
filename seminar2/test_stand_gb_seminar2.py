@@ -9,6 +9,15 @@ with open("config.yaml", 'r') as stream:
     password = config['password']
     url = config['url']
 
+def test_invalid_login(browser, login_fail):
+    test_page = TestOperations(browser)
+    test_page.get_web_page()
+    test_page.enter_login("username")
+    test_page.enter_password("password")
+    test_page.click_login_button()
+    err = test_page.get_error_message()
+    assert err == login_fail
+
 def test_login(browser, success_login):
     test_page = TestOperations(browser)
     test_page.get_web_page()

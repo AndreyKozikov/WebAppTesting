@@ -1,0 +1,4 @@
+2024-12-13 12:51:09 INFO ====== WebDriver manager ======
+2024-12-13 12:51:10 INFO Get LATEST chromedriver version for google-chrome
+2024-12-13 12:51:10 INFO Get LATEST chromedriver version for google-chrome
+2024-12-13 12:51:10 INFO Driver [C:\Users\nwisd\.wdm\drivers\chromedriver\win64\131.0.6778.108\chromedriver-win32/chromedriver.exe] found in cache
