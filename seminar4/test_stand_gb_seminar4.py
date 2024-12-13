@@ -1,7 +1,5 @@
 import time
-
-
-from testoperations import OperationsHelper
+from testoperations import OperationsHelper, OperationsHelperApi
 import yaml
 
 with open("config.yaml", 'r') as stream:
@@ -12,7 +10,7 @@ with open("config.yaml", 'r') as stream:
 
 def test_invalid_login(browser, login_fail):
     test_page = OperationsHelper(browser)
-    test_page.get_web_page(url)
+    test_page.get_web_page(url + "login")
     test_page.enter_login(login_fail[0])
     test_page.enter_password(login_fail[1])
     test_page.click_login_button(False)
@@ -70,4 +68,25 @@ def test_check_alert(browser, alert_text):
     alert_message = alert.text
     print(alert_message)
     assert alert_message == alert_text
+
+# Провека наличия поста в ленте постов другого пользователя
+def test_post_header_check(api_session, search_post_by_title):
+    param = {
+        "owner" : "notMe"
+    }
+    response = api_session.get(url + "/api/posts", params=param)
+    posts = response.json()["data"]
+    titles = [post["title"] for post in posts]
+    assert search_post_by_title in titles
+
+# Тест проверки по полю description наличия поста в ленте своих постов после его создания
+def test_create_post(api_session, new_post):
+    api = OperationsHelperApi
+    api.create_post_api(api_session, url, new_post)
+    response = api_session.get("https://test-stand.gb.ru/api/posts")
+    if response.status_code != 200:
+        raise Exception(f"Failed to fetch posts: {response.status_code} - {response.text}")
+    posts = response.json()["data"]
+    titles = [post["title"] for post in posts]
+    assert  new_post["title"] in titles
 

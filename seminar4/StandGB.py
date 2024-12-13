@@ -9,9 +9,8 @@ with open("config.yaml", 'r') as stream:
 
 
 class StandGB:
-    def __init__(self, driver):
+    def __init__(self, driver, ):
         self.driver = driver
-        driver.implicitly_wait(config['wait_time'])
 
     def find_element(self, locator, time=20):
         try:

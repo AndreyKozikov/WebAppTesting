@@ -1,5 +1,5 @@
 import time
-
+import requests
 from StandGB import StandGB
 from selenium.webdriver.common.by import By
 import yaml
@@ -17,23 +17,6 @@ class SearchLocators:
         for locator in locators["CSS"].keys():
             ids[locator] = (By.CSS_SELECTOR, locators["CSS"][locator])
 
-    # LOCATOR_LOGIN_FIELD = (By.XPATH, '//*[@id="login"]/div[1]/label/input')
-    # LOCATOR_PASSWORD_FIELD = (By.XPATH, '//*[@id="login"]/div[2]/label/input')
-    # LOCATOR_LOGIN_BUTTON = (By.XPATH, '//*[@id="login"]/div[3]/button')
-    # LOCATOR_ERROR_FIELD = (By.XPATH, '//*[@id="app"]/main/div/div/div[2]/h2')
-    # LOCATOR_CREATE_POST_BTN = (By.CSS_SELECTOR, '#create-btn')
-    # LOCATOR_TITLE_POST_FIELD = (By.XPATH, '//*[@id="create-item"]/div/div/div[1]/div/label/input')
-    # LOCATOR_DESC_POST_FIELD = (By.XPATH, '//*[@id="create-item"]/div/div/div[2]/div/label/span/textarea')
-    # LOCATOR_CONTENT_POST_FIELD = (By.XPATH, '//*[@id="create-item"]/div/div/div[3]/div/label/span/textarea')
-    # LOCATOR_SAVE_POST_BTN = (By.XPATH, '//*[@id="create-item"]/div/div/div[7]/div/button')
-    # LOCATOR_TITLE_AFTER_CREATE = (By.XPATH, '//*[@id="app"]/main/div/div[1]/h1')
-    # LOCATOR_SUCCESS_LOGIN = (By.XPATH, '//*[@id="app"]/main/nav/ul/li[3]/a')
-    # LOCATOR_HREF_CONTACT_US = (By.XPATH, '//*[@id="app"]/main/nav/ul/li[2]/a')
-    # LOCATOR_H1_CONTACT_US = (By.XPATH, '//*[@id="app"]/main/div/div/h1')
-    # LOCATOR_CONTACT_YOU_NAME_FIELD = (By.XPATH, '//*[@id="contact"]/div[1]/label/input')
-    # LOCATOR_CONTACT_YOU_EMAIL_FIELD = (By.XPATH, '//*[@id="contact"]/div[2]/label/input')
-    # LOCATOR_CONTACT_CONTENT_FIELD = (By.XPATH, '//*[@id="contact"]/div[3]/label/span/textarea')
-    # LOCATOR_CONTACT_US_BTN = (By.XPATH, '//*[@id="contact"]/div[4]/button')
 
 class OperationsHelper(StandGB):
     def check_success_login(self):
@@ -146,3 +129,10 @@ class OperationsHelper(StandGB):
         return name, email, content
 
 
+class OperationsHelperApi:
+    # Создание нового поста
+    def create_post_api(api_session, url, data):
+        response = api_session.post(url + "api/posts", data=data)
+        if response.status_code < 200 or response.status_code > 299:
+            logging.error(f"Failed to create post: {response.status_code} - {response.text}")
+        return data["description"]
